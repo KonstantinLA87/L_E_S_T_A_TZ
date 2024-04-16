@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import { ref, onMounted } from 'vue';
+
+import 'swiper/css';
 
 const data = ref([])
 
@@ -49,16 +52,19 @@ onMounted(() => {
 
 <template>
   <h1>Корабли</h1>
-  <div class="flex">
-    <div v-for="item in data">
+
+  <swiper
+    :slides-per-view="3"
+    :space-between="50"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+  >
+    <swiper-slide v-for="item in data">
       <img :src="`https:${item.icons.medium}`" alt="">
-    </div>
-  </div>
+    </swiper-slide>
+  </swiper>
 </template>
 
 <style scoped>
-.flex {
-  display: flex;
-  max-width: 100vw;
-}
+
 </style>
