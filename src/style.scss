@@ -1,5 +1,6 @@
 @import './reset.scss';
 
 body {
-  background: url('./bg.jpeg');
+	background: url('./bg.jpg');
+	background-attachment: fixed;
 }
