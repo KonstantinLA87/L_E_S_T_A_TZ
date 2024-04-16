@@ -1,0 +1,180 @@
+@import './reset.scss';
+@import './fonts.scss';
+
+body {
+	// background: url('./assets/img/bg.jpg');
+	background: #143037;
+	background-attachment: fixed;
+	font-family: 'Roboto', Arial;
+	font-weight: 300;
+}
+
+h1 {
+	text-transform: uppercase;
+	// text-align: center;
+	background-image: linear-gradient(to bottom, #fff, rgb(155, 155, 155));
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	margin-bottom: 20px;
+	font-family: 'RobotoCondensed';
+	font-weight: 700;
+	font-size: 60px;
+}
+
+label {
+	color: #fff;
+}
+
+.container {
+    width: 100%;
+    padding: 200px 20px 0;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+    gap: 20px;
+}
+
+.swiper-slide {
+    width: auto !important;
+}
+
+.item {
+    width: 190px;
+    height: 220px;
+    background: #082129;
+    color: #fff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 10px;
+    position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	border: 1px solid transparent;
+	transition: .2s;
+
+	&:hover {
+		border: 1px solid #ffffff8b;
+		box-shadow: 0 0 20px rgba(255,255,255,.3);
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100px;
+		background: linear-gradient(180deg, transparent, #082129);
+	}
+
+    &.japan {
+        background-image: url("./assets/img/flag_japan.png");
+    }
+    &.usa {
+        background-image: url("./assets/img/flag_usa.png");
+    }
+    &.ussr {
+        background-image: url("./assets/img/flag_ussr.png");
+    }
+    &.germany {
+        background-image: url("./assets/img/flag_germany.png");
+    }
+    &.uk {
+        background-image: url("./assets/img/flag_uk.png");
+    }
+    &.france {
+        background-image: url("./assets/img/flag_france.png");
+    }
+    &.asia {
+        background-image: url("./assets/img/flag_asia.png");
+    }
+    &.italy {
+        background-image: url("./assets/img/flag_italy.png");
+    }
+    &.common {
+        background-image: url("./assets/img/flag_common.png");
+    }
+    &.america {
+        background-image: url("./assets/img/flag_america.png");
+    }
+    &.europe {
+        background-image: url("./assets/img/flag_europe.png");
+    }
+    &.netherlands {
+        background-image: url("./assets/img/flag_netherlands.png");
+    }
+    &.spain {
+        background-image: url("./assets/img/flag_spain.png");
+    }
+}
+
+.item__img {
+	position: relative;
+}
+
+.p-level {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    text-transform: uppercase;
+    color: #ffffff;
+	text-shadow: 0px 2px 5px rgba(0,0,0,.5);
+}
+
+.p-title {
+    text-transform: uppercase;
+	text-align: center;
+	background-image: linear-gradient(to bottom, #fff, rgb(155, 155, 155));
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	margin-bottom: 4px;
+	font-family: 'RobotoCondensed';
+	font-weight: 700;
+}
+
+.p-type {
+    text-align: center;
+	font-size: 13px;
+	text-transform: uppercase;
+	color: #fff;
+	opacity: .5;
+	margin-bottom: 12px;
+}
+
+.p-overview {
+	font-size: 11px;
+	padding: 0 2px;
+	
+	&__title {
+		text-align: center;
+		font-size: 11px;
+		position: relative;
+		text-transform: uppercase;
+		margin-bottom: 8px;
+
+		&::before,
+		&::after {
+			position: absolute;
+			content: '';
+			left: 0;
+			top: 4px;
+			width: 45px;
+			height: 5px;
+			border: 1px solid transparent;
+			border-top-color: #fff;
+			border-bottom-color: #fff;
+			opacity: .1;
+		}
+	
+		&::after {
+			right: 0;
+			left: auto;
+		}
+	}
+	
+}

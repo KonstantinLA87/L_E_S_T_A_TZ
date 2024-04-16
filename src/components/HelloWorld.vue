@@ -19,33 +19,74 @@ const fetchReq = (query: any) => {
 };
 
 const some = `query All {
-  vehicles {
-    title
-    description
-    icons {
-      large
-      medium
+    vehicles {
+        title
+        name
+        description
+        icons {
+            large
+            medium
+        }
+        level
+        type {
+            name
+            title
+            icons {
+                default
+            }
+        }
+        nation {
+            name
+            title
+            color
+            icons {
+                small
+                medium
+                large
+            }
+        }
     }
-    level
-    type {
-      name
-    	title
-      icons {
-        default
-      }
-    }
-    nation {
-      name
-      title
-      color
-      icons {
-        small
-        medium
-        large
-      }
-    }
-  }
 }`;
+
+const translateType = (type) => {
+    switch (type) {
+        case 'submarine':
+            return 'субмарина'
+        case 'destroyer':
+            return 'разрушитель'
+        case 'cruiser':
+            return 'крейсер'
+        case 'battleship':
+            return 'боевой корабль'
+        case 'aircarrier':
+            return 'авианосец'
+        default:
+            return ''
+    }
+}
+
+const list = [
+    {
+        name: 'submarine',
+        translate: 'Субмарина',
+    },
+    {
+        name: 'destroyer',
+        translate: 'Разрушитель',
+    },
+    {
+        name: 'cruiser',
+        translate: 'Крейсер',
+    },
+    {
+        name: 'battleship',
+        translate: 'Боевой корабль',
+    },
+    {
+        name: 'aircarrier',
+        translate: 'Авианосец',
+    },
+]
 
 onMounted(() => {
     fetchReq(some);
@@ -56,29 +97,15 @@ onMounted(() => {
     <div class="container">
         <h1>Корабли</h1>
 
-        <!-- <swiper
-            :slides-per-view="3"
-            :space-between="10"
-            >
-            <swiper-slide v-for="item in data">
-                <div class="slide-box" :class="{
-                'japan': item.nation.name === 'japan',
-                'usa': item.nation.name === 'usa',
-                }">
-                <img :src="`https:${item.icons.medium}`" alt="">
-                <p>Название: {{ item.title }}</p>
-                <p>Описание: {{ item.description }}</p>
-                <p>Уровень: {{ item.level }}</p>
-                <p>Нация: {{ item.nation.name }}</p>
-                <p>Тип: {{ item.type.name }}</p>
-                </div>
-            </swiper-slide>
-        </swiper> -->
+        <label v-for="item in list" :for="item.name">
+            <input type="checkbox" :name="item.name" :id="item.name">
+            <span>{{ item.translate }}</span>
+        </label>
 
         <div class="flex">
             <div
                 v-for="item in data"
-                class="slide-box"
+                class="item"
                 :class="{
                     japan: item.nation.name === 'japan',
                     usa: item.nation.name === 'usa',
@@ -95,80 +122,18 @@ onMounted(() => {
                     spain: item.nation.name === 'spain',
                 }"
             >
-                <img :src="`https:${item.icons.medium}`" alt="" />
-                <p>Название: {{ item.title }}</p>
-                <p>Описание: {{ item.description }}</p>
-                <p>Уровень: {{ item.level }}</p>
-                <p>Нация: {{ item.nation.name }}</p>
-                <p>Тип: {{ item.type.name }}</p>
+                <img class="item__img" :src="`https:${item.icons.medium}`" alt="" />
+                <p class="p-level">Ур. {{ item.level }}</p>
+                <p class="p-title">{{ item.name.slice(8).replace('_', ' ') }}</p>
+                <!-- <p class="p-type">{{ item.type.name }}</p> -->
+                <p class="p-type">{{ translateType(item.type.name) }}</p>
+                <p class="p-overview__title">Описание</p>
+                <p class="p-overview">Если бы здесь было описание, то оно бы не помещалось...</p>
+                <!-- <p>Нация: {{ item.nation.name }}</p> -->
             </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.container {
-    width: 100%;
-    padding: 0 20px;
-}
-
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.swiper-slide {
-    width: auto !important;
-}
-
-.slide-box {
-    width: 190px;
-    height: 220px;
-    background: rgba(0, 0, 0, 0.15);
-    border: 1px solid #ffffff8d;
-    color: #fff;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    &.japan {
-        background-image: url("./flag_japan.jpeg");
-    }
-    &.usa {
-        background-image: url("./flag_usa.jpeg");
-    }
-    &.ussr {
-        background-image: url("./flag_ussr.png");
-    }
-    &.germany {
-        background-image: url("./flag_germany.jpeg");
-    }
-    &.uk {
-        background-image: url("./flag_uk.png");
-    }
-    &.france {
-        background-image: url("./flag_france.webp");
-    }
-    &.asia {
-        background-image: url("./flag_asia.jpeg");
-    }
-    &.italy {
-        background-image: url("./flag_italy.webp");
-    }
-    &.common {
-        background-image: url("./flag_common.png");
-    }
-    &.america {
-        background-image: url("./flag_america.jpeg");
-    }
-    &.europe {
-        background-image: url("./flag_europe.jpg");
-    }
-    &.netherlands {
-        background-image: url("./flag_netherlands.jpeg");
-    }
-    &.spain {
-        background-image: url("./flag_spain.jpeg");
-    }
-}
 </style>
