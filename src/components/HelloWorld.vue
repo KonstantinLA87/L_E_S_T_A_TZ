@@ -1,10 +1,19 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 
 import "swiper/css";
 
 const data = ref([]);
+
+const filteredData = computed(() => {
+    return data.value.filter(item => {
+        for (const key in typesFilter.value) {
+            if (typesFilter.value[key]) {
+                return item.type.name === key
+            }
+        }
+    })
+})
 
 const fetchReq = (query: any) => {
     return fetch("https://vortex.korabli.su/api/graphql/glossary/", {
@@ -15,10 +24,10 @@ const fetchReq = (query: any) => {
         body: JSON.stringify({ query }),
     })
         .then((res) => res.json())
-        .then((something) => (data.value = something.data.vehicles));
+        .then((res) => (data.value = res.data.vehicles));
 };
 
-const some = `query All {
+const query = `query All {
     vehicles {
         title
         name
@@ -65,7 +74,7 @@ const translateType = (type) => {
     }
 }
 
-const list = [
+const typesList = [
     {
         name: 'submarine',
         translate: 'Субмарина',
@@ -88,23 +97,63 @@ const list = [
     },
 ]
 
+const typesFilter = ref({
+    submarine: true,
+    destroyer: true,
+    cruiser: true,
+    battleship: true,
+    aircarrier: true,
+});
+
+const countriesFilter = ref({
+    japan: true,
+    usa: true,
+    ussr: true,
+    germany: true,
+    uk: true,
+    france: true,
+    asia: true,
+    italy: true,
+    common: true,
+    america: true,
+    europe: true,
+    netherlands: true,
+    spain: true,
+});
+
 onMounted(() => {
-    fetchReq(some);
+    fetchReq(query);
 });
 </script>
 
 <template>
     <div class="container">
         <h1>Корабли</h1>
+        <div class="filter__wrap">
+            <label class="checkbox" v-for="item in typesList" :for="item.name">
+                <input type="checkbox" 
+                    v-model="typesFilter[item.name]"
+                    :name="item.name" 
+                    :id="item.name"
+                >
+                <span>{{ item.translate }}</span>
+            </label>
+        </div>
 
-        <label v-for="item in list" :for="item.name">
-            <input type="checkbox" :name="item.name" :id="item.name">
-            <span>{{ item.translate }}</span>
-        </label>
+        <div class="filter__wrap">
+            <label class="checkbox" v-for="item in countriesList" :for="item.name">
+                <input type="checkbox" 
+                    v-model="countriesFilter[item.name]"
+                    :name="item.name" 
+                    :id="item.name"
+                >
+                <span>{{ item.translate }}</span>
+            </label>
+        </div>
 
         <div class="flex">
             <div
-                v-for="item in data"
+                v-for="item in filteredData"
                 class="item"
                 :class="{
                     japan: item.nation.name === 'japan',
@@ -121,15 +170,14 @@ onMounted(() => {
                     netherlands: item.nation.name === 'netherlands',
                     spain: item.nation.name === 'spain',
                 }"
+                :key="item.icons.large"
             >
                 <img class="item__img" :src="`https:${item.icons.medium}`" alt="" />
                 <p class="p-level">Ур. {{ item.level }}</p>
                 <p class="p-title">{{ item.name.slice(8).replace('_', ' ') }}</p>
-                <!-- <p class="p-type">{{ item.type.name }}</p> -->
                 <p class="p-type">{{ translateType(item.type.name) }}</p>
                 <p class="p-overview__title">Описание</p>
                 <p class="p-overview">Если бы здесь было описание, то оно бы не помещалось...</p>
-                <!-- <p>Нация: {{ item.nation.name }}</p> -->
             </div>
         </div>
     </div>
