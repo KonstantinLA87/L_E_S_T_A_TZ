@@ -81,6 +81,20 @@ const setRangeSliderMax = () => {
     }
 }
 
+const isModalOpened = ref(false)
+const modalData = ref({})
+
+const openModal = (data) => {
+    isModalOpened.value = true
+    modalData.value = data
+}
+
+const closeModal = (e) => {
+    if (e.target.classList.contains('modal')) {
+        isModalOpened.value = false
+      }
+}
+
 const fetchReq = (query: string) => {
     return fetch("https://vortex.korabli.su/api/graphql/glossary/", {
         method: "POST",
@@ -100,9 +114,21 @@ onMounted(() => {
 
 <template>
     <div class="container">
+        <teleport to='body'>
+            <div class="modal" v-if="isModalOpened" @click="closeModal">
+                <div class="modal__content">
+                    <h2>{{ modalData.name.slice(8).replace('_', ' ') }}</h2>
+                    <div class="modal__content-img-wrap">
+                        <img :src="modalData.icons.large" alt="">
+                        <p class="p-level p-level--modal">Ур. {{ modalData.level }}</p>
+                    </div>
+                    <p class="p-overview__title p-overview__title--modal">Описание</p>
+                    <p class="p-overview p-overview--modal">Sint magna laboris dolore elit duis magna  consequat excepteur. Sunt officia pariatur nulla proident labore veniam deserunt amet adipisicing occaecat ut laboris sint. Cupidatat do enim nisi nostrud ad aliqua ex enim anim magna et do. Cillum duis adipisicing commodo incididunt cupidatat non proident.</p>
+                </div>
+            </div>
+        </teleport>
+
         <h1>список Кораблей</h1>
-
-
         <!-- Список кораблей -->
         <div class="flex">
             <!-- Фильтры -->
@@ -159,6 +185,7 @@ onMounted(() => {
                         netherlands: item.nation.name === 'netherlands',
                     }"
                     :key="item.icons.large"
+                    @click="openModal(item)"
                 >
                     <img class="item__img" :src="`https:${item.icons.medium}`" alt="" />
                     <p class="p-level">Ур. {{ item.level }}</p>

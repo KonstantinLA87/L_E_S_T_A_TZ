@@ -170,6 +170,12 @@ input[type="checkbox"] {
 	text-shadow: 0px 2px 5px rgba(0,0,0,.5);
 	font-family: 'RobotoCondensed';
 	font-weight: 700;
+
+	&--modal {
+		top: auto;
+		bottom: 0;
+		font-size: 30px;
+	}
 }
 
 .p-title {
@@ -196,6 +202,11 @@ input[type="checkbox"] {
 .p-overview {
 	font-size: 11px;
 	padding: 0 2px;
+
+	&--modal {
+		font-size: 15px;
+		line-height: 1.5;
+	}
 	
 	&__title {
 		text-align: center;
@@ -203,6 +214,13 @@ input[type="checkbox"] {
 		position: relative;
 		text-transform: uppercase;
 		margin-bottom: 8px;
+		color: #fff;
+
+		&--modal {
+			font-size: 18px;
+			font-weight: 500;
+			margin-bottom: 16px;
+		}
 
 		&::before,
 		&::after {
@@ -346,6 +364,35 @@ input[type="checkbox"] {
 		&.max {
 			right: 0;
 			top: 0;
+		}
+	}
+}
+
+.modal {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,.5);
+	z-index: 2;
+	left: 0;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+
+	h2 {margin-top: 0;}
+
+	&__content {
+		padding: 40px 30px 50px;
+		width: 100%;
+		max-width: 600px;
+		background: #04384c;
+		box-shadow: 0 0 20px rgba(0,0,0,.5);
+
+		&-img-wrap {
+			position: relative;
+			margin-bottom: 20px;
 		}
 	}
 }
