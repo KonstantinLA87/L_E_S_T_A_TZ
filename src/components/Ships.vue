@@ -5,7 +5,7 @@ import FilterItem from './FilterItem.vue'
 import "swiper/css";
 import { typesList, nationsList } from '../data/lists';
 import { getAllShips } from '../data/queries';
-import { ShipType, ShipsData, Nations, NationsFilter, ShipTypes, TypesFilter } from '../types/types';
+import { ShipType, ShipsData, Nations, NationsFilter, ShipTypes, TypesFilter, Nation } from '../types/types';
 
 const data = ref<ShipsData[]>([])
 
@@ -42,27 +42,27 @@ const translateType = (type: ShipType) => {
 }
 
 const typesFilter = ref<TypesFilter>({
-    submarine: true,
-    destroyer: true,
-    cruiser: true,
-    battleship: true,
-    aircarrier: true,
+    [ShipTypes.SUBMARINE]: true,
+    [ShipTypes.DESTROYER]: true,
+    [ShipTypes.CRUISER]: true,
+    [ShipTypes.BATTLESHIP]: true,
+    [ShipTypes.AIRCARRIER]: true
 });
 
 const nationsFilter = ref<NationsFilter>({
-    japan: true,
-    usa: true,
-    ussr: true,
-    germany: true,
-    uk: true,
-    france: true,
-    pan_asia: true,
-    italy: true,
-    commonwealth: true,
-    pan_america: true,
-    europe: true,
-    netherlands: true,
-    spain: true,
+    [Nations.JAPAN]: true,
+    [Nations.USA]: true,
+    [Nations.USSR]: true,
+    [Nations.GERMANY]: true,
+    [Nations.UK]: true,
+    [Nations.FRANCE]: true,
+    [Nations.ASIA]: true,
+    [Nations.ITALY]: true,
+    [Nations.COMMON]: true,
+    [Nations.AMERICA]: true,
+    [Nations.EUROPE]: true,
+    [Nations.NETHERLANDS]: true,
+    [Nations.SPAIN]: true,
 });
 
 const levelFilter = ref({
@@ -138,7 +138,7 @@ onMounted(() => {
                     </div>
                 </FilterItem>
             </div>
-            
+
             <template v-if="filteredData.length">
                 <div
                     v-for="item in filteredData"
@@ -176,4 +176,19 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-</style>
+</style>{
+    japan: true,
+    usa: true,
+
+    [Nations.GERMANY]: true,
+    [Nations.UK]: true,
+    [Nations.FRANCE]: true,
+    [Nations.ASIA]: true,
+    [Nations.ITALY]: true,
+    [Nations.COMMON]: true,
+    [Nations.AMERICA]: true,
+    [Nations.EUROPE]: true,
+    [Nations.NETHERLANDS]: true,
+    [Nations.SPAIN]: false,
+    [Nations.USSR]: false
+}
