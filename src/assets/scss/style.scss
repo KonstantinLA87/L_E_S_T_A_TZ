@@ -14,7 +14,7 @@ h1, h2 {
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;
-	margin-bottom: 20px;
+	margin-bottom: 8px;
 	font-family: 'RobotoCondensed';
 	font-weight: 700;
 	font-size: 60px;
@@ -227,7 +227,13 @@ input[type="checkbox"] {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;	
-	margin-bottom: 40px;
+	margin-bottom: 20px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #04384c;
+	z-index: 2;
+	padding: 20px 0;
 }
 
 .filters__item {

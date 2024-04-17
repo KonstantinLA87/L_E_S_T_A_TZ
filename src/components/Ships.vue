@@ -102,60 +102,61 @@ onMounted(() => {
     <div class="container">
         <h1>список Кораблей</h1>
 
-        <!-- Фильтры -->
-        <div class="filters__wrap">
-            <FilterItem type="types" title="Типы кораблей">
-                <label class="checkbox" v-for="item in typesList" :for="item.name">
-                    <input type="checkbox" 
-                        v-model="typesFilter[item.name]"
-                        :name="item.name" 
-                        :id="item.name"
-                    >
-                    <span>{{ item.translate }}</span>
-                </label>
-            </FilterItem>
-
-            <FilterItem type="nations" title="Нации">
-                <label class="checkbox" v-for="item in nationsList" :for="item.name">
-                    <input type="checkbox" 
-                        v-model="nationsFilter[item.name]"
-                        :name="item.name" 
-                        :id="item.name"
-                    >
-                    <span>{{ item.translate }}</span>
-                </label>
-            </FilterItem>
-
-            <FilterItem type="levels" title="Уровень">
-                <div class="range-slider">
-                    <span class="range-slider__number min">{{ levelFilter.min }}</span>
-                    <span class="range-slider__number max">{{ levelFilter.max }}</span>
-                    <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
-                    <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
-                </div>
-            </FilterItem>
-        </div>
 
         <!-- Список кораблей -->
         <div class="flex">
+            <!-- Фильтры -->
+            <div class="filters__wrap">
+                <FilterItem type="types" title="Типы кораблей">
+                    <label class="checkbox" v-for="item in typesList" :for="item.name">
+                        <input type="checkbox" 
+                            v-model="typesFilter[item.name]"
+                            :name="item.name" 
+                            :id="item.name"
+                        >
+                        <span>{{ item.translate }}</span>
+                    </label>
+                </FilterItem>
+
+                <FilterItem type="nations" title="Нации">
+                    <label class="checkbox" v-for="item in nationsList" :for="item.name">
+                        <input type="checkbox" 
+                            v-model="nationsFilter[item.name]"
+                            :name="item.name" 
+                            :id="item.name"
+                        >
+                        <span>{{ item.translate }}</span>
+                    </label>
+                </FilterItem>
+
+                <FilterItem type="levels" title="Уровень">
+                    <div class="range-slider">
+                        <span class="range-slider__number min">{{ levelFilter.min }}</span>
+                        <span class="range-slider__number max">{{ levelFilter.max }}</span>
+                        <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
+                        <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
+                    </div>
+                </FilterItem>
+            </div>
+            
             <template v-if="filteredData.length">
                 <div
                     v-for="item in filteredData"
                     class="item"
                     :class="{
-                        japan: item.nation.name === 'japan',
+                        uk: item.nation.name === 'uk',
                         usa: item.nation.name === 'usa',
                         ussr: item.nation.name === 'ussr',
-                        germany: item.nation.name === 'germany',
-                        uk: item.nation.name === 'uk',
-                        france: item.nation.name === 'france',
                         asia: item.nation.name === 'pan_asia',
+                        japan: item.nation.name === 'japan',
                         italy: item.nation.name === 'italy',
-                        common: item.nation.name === 'commonwealth',
-                        america: item.nation.name === 'pan_america',
-                        europe: item.nation.name === 'europe',
-                        netherlands: item.nation.name === 'netherlands',
                         spain: item.nation.name === 'spain',
+                        france: item.nation.name === 'france',
+                        europe: item.nation.name === 'europe',
+                        common: item.nation.name === 'commonwealth',
+                        germany: item.nation.name === 'germany',
+                        america: item.nation.name === 'pan_america',
+                        netherlands: item.nation.name === 'netherlands',
                     }"
                     :key="item.icons.large"
                 >
