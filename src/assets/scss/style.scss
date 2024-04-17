@@ -231,7 +231,8 @@ input[type="checkbox"] {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #04384c;
+	background: linear-gradient(0deg, transparent 0px, #04384ccc 10px);
+	backdrop-filter: blur(5px);
 	z-index: 2;
 	padding: 20px 0;
 }
