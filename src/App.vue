@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Ships from './components/Ships.vue'
 </script>
 
 <template>
-  <HelloWorld />
+  <Ships />
 </template>
 
 <style scoped>
