@@ -113,6 +113,8 @@ onMounted(() => {
 </script>
 
 <template>
+    <div class="main-img" />
+
     <div class="container">
         <teleport to='body'>
             <div class="modal" v-if="isModalOpened" @click="closeModal">
