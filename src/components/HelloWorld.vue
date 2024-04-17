@@ -3,13 +3,18 @@ import { ref, onMounted, watch, computed } from "vue";
 
 import "swiper/css";
 
-const data = ref([]);
+const data = ref([])
 
 const filteredData = computed(() => {
     return data.value.filter(item => {
-        return Object.keys(typesFilter.value).some(type => {
-            return typesFilter.value[type] && item.type.name === type;
-        });
+        return (
+            Object.keys(typesFilter.value).some(type => {
+                return typesFilter.value[type] && item.type.name === type
+            }) &&
+            Object.keys(nationsFilter.value).some(nation => {
+                return nationsFilter.value[nation] && item.nation.name === nation
+            })
+        )
     });
 });
 
@@ -95,7 +100,7 @@ const typesList = [
     },
 ]
 
-const countriesList = [
+const nationsList = [
     {
         name: 'japan',
         translate: 'Япония',
@@ -115,14 +120,6 @@ const countriesList = [
     {
         name: 'uk',
         translate: 'Британия',
-    },
-    {
-        name: 'france',
-        translate: 'Франция',
-    },
-    {
-        name: 'pan_asia',
-        translate: 'Азия',
     },
     {
         name: 'france',
@@ -166,7 +163,7 @@ const typesFilter = ref({
     aircarrier: true,
 });
 
-const countriesFilter = ref({
+const nationsFilter = ref({
     japan: true,
     usa: true,
     ussr: true,
@@ -202,9 +199,9 @@ onMounted(() => {
         </div>
 
         <div class="filter__wrap">
-            <label class="checkbox" v-for="item in countriesList" :for="item.name">
+            <label class="checkbox" v-for="item in nationsList" :for="item.name">
                 <input type="checkbox" 
-                    v-model="countriesFilter[item.name]"
+                    v-model="nationsFilter[item.name]"
                     :name="item.name" 
                     :id="item.name"
                 >
