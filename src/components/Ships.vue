@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
+import FilterItem from './FilterItem.vue'
 
 import "swiper/css";
+import { typesList, nationsList } from '../data/lists';
+import { getAllShips } from '../data/queries';
 
 const data = ref([])
 
@@ -32,36 +35,6 @@ const fetchReq = (query: any) => {
         .then((res) => (data.value = res.data.vehicles));
 };
 
-const query = `query All {
-    vehicles {
-        title
-        name
-        description
-        icons {
-            large
-            medium
-        }
-        level
-        type {
-            name
-            title
-            icons {
-                default
-            }
-        }
-        nation {
-            name
-            title
-            color
-            icons {
-                small
-                medium
-                large
-            }
-        }
-    }
-}`;
-
 const translateType = (type) => {
     switch (type) {
         case 'submarine':
@@ -78,84 +51,6 @@ const translateType = (type) => {
             return ''
     }
 }
-
-const typesList = [
-    {
-        name: 'submarine',
-        translate: 'Субмарина',
-    },
-    {
-        name: 'destroyer',
-        translate: 'Разрушитель',
-    },
-    {
-        name: 'cruiser',
-        translate: 'Крейсер',
-    },
-    {
-        name: 'battleship',
-        translate: 'Боевой корабль',
-    },
-    {
-        name: 'aircarrier',
-        translate: 'Авианосец',
-    },
-]
-
-const nationsList = [
-    {
-        name: 'japan',
-        translate: 'Япония',
-    },
-    {
-        name: 'usa',
-        translate: 'США',
-    },
-    {
-        name: 'ussr',
-        translate: 'СССР',
-    },
-    {
-        name: 'germany',
-        translate: 'Германия',
-    },
-    {
-        name: 'uk',
-        translate: 'Британия',
-    },
-    {
-        name: 'france',
-        translate: 'Франция',
-    },
-    {
-        name: 'pan_asia',
-        translate: 'Азия',
-    },
-    {
-        name: 'italy',
-        translate: 'Италия',
-    },
-    {
-        name: 'commonwealth',
-        translate: 'Общий',
-    },
-    {
-        name: 'pan_america',
-        translate: 'Америка',
-    },
-    {
-        name: 'europe',
-        translate: 'Европа',
-    },
-    {
-        name: 'netherlands',
-        translate: 'Нидерланды',
-    },
-    {
-        name: 'spain',
-        translate: 'Испания',
-    },
-]
 
 const typesFilter = ref({
     submarine: true,
@@ -197,21 +92,18 @@ const setRangeSliderMax = () => {
     }
 }
 
-const isTypesFilterShow = ref(false)
-const isNationsFilterShow = ref(false)
-const isLevelsFilterShow = ref(false)
-
 onMounted(() => {
-    fetchReq(query);
+    fetchReq(getAllShips);
 });
 </script>
 
 <template>
     <div class="container">
         <h1>список Кораблей</h1>
+
+        <!-- Фильтры -->
         <div class="filters__wrap">
-            <div class="filters__item filters__item--types">
-                <span class="filters__item-title">Типы кораблей</span>
+            <FilterItem type="types" title="Типы кораблей">
                 <label class="checkbox" v-for="item in typesList" :for="item.name">
                     <input type="checkbox" 
                         v-model="typesFilter[item.name]"
@@ -220,10 +112,9 @@ onMounted(() => {
                     >
                     <span>{{ item.translate }}</span>
                 </label>
-            </div>
-    
-            <div class="filters__item filters__item--nations">
-                <span class="filters__item-title">Нации</span>
+            </FilterItem>
+
+            <FilterItem type="nations" title="Нации">
                 <label class="checkbox" v-for="item in nationsList" :for="item.name">
                     <input type="checkbox" 
                         v-model="nationsFilter[item.name]"
@@ -232,19 +123,19 @@ onMounted(() => {
                     >
                     <span>{{ item.translate }}</span>
                 </label>
-            </div>
-    
-            <div class="filters__item filters__item--level">
-                <span class="filters__item-title">Уровень</span>
+            </FilterItem>
+
+            <FilterItem type="levels" title="Уровень">
                 <div class="range-slider">
                     <span class="range-slider__number min">{{ levelFilter.min }}</span>
                     <span class="range-slider__number max">{{ levelFilter.max }}</span>
                     <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
                     <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
                 </div>
-            </div>
+            </FilterItem>
         </div>
 
+        <!-- Список кораблей -->
         <div class="flex">
             <template v-if="filteredData.length">
                 <div
