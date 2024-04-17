@@ -5,7 +5,7 @@ import FilterItem from './FilterItem.vue'
 import "swiper/css";
 import { typesList, nationsList } from '../data/lists';
 import { getAllShips } from '../data/queries';
-import { NationsFilter, ShipsData, TypesFilter, ShipType, Nations, ShipTypes } from '../types/types';
+import { ShipType, ShipsData, Nations, NationsFilter, ShipTypes, TypesFilter } from '../types/types';
 
 const data = ref<ShipsData[]>([])
 
@@ -23,18 +23,6 @@ const filteredData = computed(() => {
         )
     });
 });
-
-const fetchReq = (query: any) => {
-    return fetch("https://vortex.korabli.su/api/graphql/glossary/", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-    })
-        .then((res) => res.json())
-        .then((res) => (data.value = res.data.vehicles));
-};
 
 const translateType = (type: ShipType) => {
     switch (type) {
@@ -92,6 +80,18 @@ const setRangeSliderMax = () => {
         levelFilter.value.max = levelFilter.value.min
     }
 }
+
+const fetchReq = (query: string) => {
+    return fetch("https://vortex.korabli.su/api/graphql/glossary/", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+    })
+        .then((res) => res.json())
+        .then((res) => (data.value = res.data.vehicles));
+};
 
 onMounted(() => {
     fetchReq(getAllShips);
