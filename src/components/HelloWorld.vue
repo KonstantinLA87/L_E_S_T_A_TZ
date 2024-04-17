@@ -7,13 +7,11 @@ const data = ref([]);
 
 const filteredData = computed(() => {
     return data.value.filter(item => {
-        for (const key in typesFilter.value) {
-            if (typesFilter.value[key]) {
-                return item.type.name === key
-            }
-        }
-    })
-})
+        return Object.keys(typesFilter.value).some(type => {
+            return typesFilter.value[type] && item.type.name === type;
+        });
+    });
+});
 
 const fetchReq = (query: any) => {
     return fetch("https://vortex.korabli.su/api/graphql/glossary/", {
@@ -97,6 +95,69 @@ const typesList = [
     },
 ]
 
+const countriesList = [
+    {
+        name: 'japan',
+        translate: 'Япония',
+    },
+    {
+        name: 'usa',
+        translate: 'США',
+    },
+    {
+        name: 'ussr',
+        translate: 'СССР',
+    },
+    {
+        name: 'germany',
+        translate: 'Германия',
+    },
+    {
+        name: 'uk',
+        translate: 'Британия',
+    },
+    {
+        name: 'france',
+        translate: 'Франция',
+    },
+    {
+        name: 'pan_asia',
+        translate: 'Азия',
+    },
+    {
+        name: 'france',
+        translate: 'Франция',
+    },
+    {
+        name: 'pan_asia',
+        translate: 'Азия',
+    },
+    {
+        name: 'italy',
+        translate: 'Италия',
+    },
+    {
+        name: 'commonwealth',
+        translate: 'Общий',
+    },
+    {
+        name: 'pan_america',
+        translate: 'Америка',
+    },
+    {
+        name: 'europe',
+        translate: 'Европа',
+    },
+    {
+        name: 'netherlands',
+        translate: 'Нидерланды',
+    },
+    {
+        name: 'spain',
+        translate: 'Испания',
+    },
+]
+
 const typesFilter = ref({
     submarine: true,
     destroyer: true,
@@ -112,10 +173,10 @@ const countriesFilter = ref({
     germany: true,
     uk: true,
     france: true,
-    asia: true,
+    pan_asia: true,
     italy: true,
-    common: true,
-    america: true,
+    commonwealth: true,
+    pan_america: true,
     europe: true,
     netherlands: true,
     spain: true,
