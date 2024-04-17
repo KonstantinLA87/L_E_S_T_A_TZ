@@ -13,7 +13,9 @@ const filteredData = computed(() => {
             }) &&
             Object.keys(nationsFilter.value).some(nation => {
                 return nationsFilter.value[nation] && item.nation.name === nation
-            })
+            }) &&
+            item.level >= levelFilter.value.min &&
+            item .level <= levelFilter.value.max
         )
     });
 });
@@ -179,6 +181,22 @@ const nationsFilter = ref({
     spain: true,
 });
 
+const levelFilter = ref({
+    min: 1,
+    max: 11,
+})
+
+const setRangeSliderMin = () => {
+ if (levelFilter.value.min > levelFilter.value.max) {
+        levelFilter.value.min = levelFilter.value.max
+    }
+}
+const setRangeSliderMax = () => {
+ if (levelFilter.value.max < levelFilter.value.min) {
+        levelFilter.value.max = levelFilter.value.min
+    }
+}
+
 onMounted(() => {
     fetchReq(query);
 });
@@ -207,6 +225,17 @@ onMounted(() => {
                 >
                 <span>{{ item.translate }}</span>
             </label>
+        </div>
+
+        <div class="filter__wrap">
+            <div class="range-slider">
+                <span class="range-slider__number min">1</span>
+                <span class="range-slider__number max">11</span>
+                <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
+                <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
+                <input type="number" name="" id="" v-model="levelFilter.min">
+                <input type="number" name="" id="" v-model="levelFilter.max">
+            </div>
         </div>
 
         <div class="flex">
