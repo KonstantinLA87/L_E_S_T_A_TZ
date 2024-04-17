@@ -119,7 +119,8 @@ onMounted(() => {
                 <div class="modal__content">
                     <h2>{{ modalData.name.slice(8).replace('_', ' ') }}</h2>
                     <div class="modal__content-img-wrap">
-                        <img :src="modalData.icons.large" alt="">
+                        <img class="modal__content-img-flag" :src="modalData.nation.icons.large" alt="">
+                        <img class="modal__content-img" :src="modalData.icons.large" alt="">
                         <p class="p-level p-level--modal">Ур. {{ modalData.level }}</p>
                     </div>
                     <p class="p-overview__title p-overview__title--modal">Описание</p>

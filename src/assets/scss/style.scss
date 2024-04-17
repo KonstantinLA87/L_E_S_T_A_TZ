@@ -216,12 +216,6 @@ input[type="checkbox"] {
 		margin-bottom: 8px;
 		color: #fff;
 
-		&--modal {
-			font-size: 18px;
-			font-weight: 500;
-			margin-bottom: 16px;
-		}
-
 		&::before,
 		&::after {
 			position: absolute;
@@ -239,6 +233,18 @@ input[type="checkbox"] {
 		&::after {
 			right: 0;
 			left: auto;
+		}
+
+		&--modal {
+			font-size: 18px;
+			font-weight: 500;
+			margin-bottom: 16px;
+
+			&::before,
+			&::after {
+				top: 7px;
+				width: 200px;
+			}
 		}
 	}
 }
@@ -389,6 +395,19 @@ input[type="checkbox"] {
 		max-width: 600px;
 		background: #04384c;
 		box-shadow: 0 0 20px rgba(0,0,0,.5);
+
+		&-img {
+			position: relative;
+		}
+
+		&-img-flag {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 350px;
+			transform: translate(-175px, -100px);
+			opacity: .5;
+		}
 
 		&-img-wrap {
 			position: relative;

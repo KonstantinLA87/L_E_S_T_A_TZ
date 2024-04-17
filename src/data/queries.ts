@@ -12,6 +12,9 @@ export const getAllShips = `query getAllShips {
         }
         nation {
             name
+            icons {
+                large
+            }
         }
     }
 }`;
