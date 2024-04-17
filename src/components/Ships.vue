@@ -176,19 +176,4 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-</style>{
-    japan: true,
-    usa: true,
-
-    [Nations.GERMANY]: true,
-    [Nations.UK]: true,
-    [Nations.FRANCE]: true,
-    [Nations.ASIA]: true,
-    [Nations.ITALY]: true,
-    [Nations.COMMON]: true,
-    [Nations.AMERICA]: true,
-    [Nations.EUROPE]: true,
-    [Nations.NETHERLANDS]: true,
-    [Nations.SPAIN]: false,
-    [Nations.USSR]: false
-}
+</style>
