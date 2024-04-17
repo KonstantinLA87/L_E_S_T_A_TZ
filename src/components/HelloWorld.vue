@@ -187,15 +187,19 @@ const levelFilter = ref({
 })
 
 const setRangeSliderMin = () => {
- if (levelFilter.value.min > levelFilter.value.max) {
+    if (levelFilter.value.min > levelFilter.value.max) {
         levelFilter.value.min = levelFilter.value.max
     }
 }
 const setRangeSliderMax = () => {
- if (levelFilter.value.max < levelFilter.value.min) {
+    if (levelFilter.value.max < levelFilter.value.min) {
         levelFilter.value.max = levelFilter.value.min
     }
 }
+
+const isTypesFilterShow = ref(false)
+const isNationsFilterShow = ref(false)
+const isLevelsFilterShow = ref(false)
 
 onMounted(() => {
     fetchReq(query);
@@ -204,37 +208,37 @@ onMounted(() => {
 
 <template>
     <div class="container">
-        <h1>Корабли</h1>
-        <div class="filter__wrap">
-            <label class="checkbox" v-for="item in typesList" :for="item.name">
-                <input type="checkbox" 
-                    v-model="typesFilter[item.name]"
-                    :name="item.name" 
-                    :id="item.name"
-                >
-                <span>{{ item.translate }}</span>
-            </label>
-        </div>
-
-        <div class="filter__wrap">
-            <label class="checkbox" v-for="item in nationsList" :for="item.name">
-                <input type="checkbox" 
-                    v-model="nationsFilter[item.name]"
-                    :name="item.name" 
-                    :id="item.name"
-                >
-                <span>{{ item.translate }}</span>
-            </label>
-        </div>
-
-        <div class="filter__wrap">
-            <div class="range-slider">
-                <span class="range-slider__number min">1</span>
-                <span class="range-slider__number max">11</span>
-                <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
-                <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
-                <input type="number" name="" id="" v-model="levelFilter.min">
-                <input type="number" name="" id="" v-model="levelFilter.max">
+        <h1>список Кораблей</h1>
+        <div class="filters__wrap">
+            <div class="filters__item filters__item--types">
+                <label class="checkbox" v-for="item in typesList" :for="item.name">
+                    <input type="checkbox" 
+                        v-model="typesFilter[item.name]"
+                        :name="item.name" 
+                        :id="item.name"
+                    >
+                    <span>{{ item.translate }}</span>
+                </label>
+            </div>
+    
+            <div class="filters__item filters__item--nations">
+                <label class="checkbox" v-for="item in nationsList" :for="item.name">
+                    <input type="checkbox" 
+                        v-model="nationsFilter[item.name]"
+                        :name="item.name" 
+                        :id="item.name"
+                    >
+                    <span>{{ item.translate }}</span>
+                </label>
+            </div>
+    
+            <div class="filters__item filters__item--level">
+                <div class="range-slider">
+                    <span class="range-slider__number min">1</span>
+                    <span class="range-slider__number max">11</span>
+                    <input type="range" v-model="levelFilter.min" min="1" max="11" @input="setRangeSliderMin">
+                    <input type="range" v-model="levelFilter.max" min="1" max="11" @input="setRangeSliderMax">
+                </div>
             </div>
         </div>
 
