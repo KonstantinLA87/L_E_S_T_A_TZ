@@ -1,77 +1,79 @@
-export const typesList = [
+import { ShipTypes, ShipTypesListItem, Nations, NationsListItem } from "../types/types"
+
+export const typesList: ShipTypesListItem[] = [
     {
-        name: 'submarine',
+        name: ShipTypes.SUBMARINE,
         translate: 'Субмарина',
     },
     {
-        name: 'destroyer',
+        name: ShipTypes.DESTROYER,
         translate: 'Разрушитель',
     },
     {
-        name: 'cruiser',
+        name: ShipTypes.CRUISER,
         translate: 'Крейсер',
     },
     {
-        name: 'battleship',
+        name: ShipTypes.BATTLESHIP,
         translate: 'Боевой корабль',
     },
     {
-        name: 'aircarrier',
+        name: ShipTypes.AIRCARRIER,
         translate: 'Авианосец',
     },
 ]
 
-export const nationsList = [
+export const nationsList: NationsListItem[] = [
     {
-        name: 'japan',
+        name: Nations.JAPAN,
         translate: 'Япония',
     },
     {
-        name: 'usa',
+        name: Nations.USA,
         translate: 'США',
     },
     {
-        name: 'ussr',
+        name: Nations.USSR,
         translate: 'СССР',
     },
     {
-        name: 'germany',
+        name: Nations.GERMANY,
         translate: 'Германия',
     },
     {
-        name: 'uk',
+        name: Nations.UK,
         translate: 'Британия',
     },
     {
-        name: 'france',
+        name: Nations.FRANCE,
         translate: 'Франция',
     },
     {
-        name: 'pan_asia',
+        name: Nations.ASIA,
         translate: 'Азия',
     },
     {
-        name: 'italy',
+        name: Nations.ITALY,
         translate: 'Италия',
     },
     {
-        name: 'commonwealth',
+        name: Nations.COMMON,
         translate: 'Общий',
     },
     {
-        name: 'pan_america',
+        name: Nations.AMERICA,
         translate: 'Америка',
     },
     {
-        name: 'europe',
+        name: Nations.EUROPE,
         translate: 'Европа',
     },
     {
-        name: 'netherlands',
+        name: Nations.NETHERLANDS,
         translate: 'Нидерланды',
     },
     {
-        name: 'spain',
+        name: Nations.SPAIN,
         translate: 'Испания',
     },
 ]

@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, computed } from 'vue'
 import FilterItem from './FilterItem.vue'
 
 import "swiper/css";
 import { typesList, nationsList } from '../data/lists';
 import { getAllShips } from '../data/queries';
+import { NationsFilter, ShipsData, TypesFilter, ShipType, Nations, ShipTypes } from '../types/types';
 
-const data = ref([])
+const data = ref<ShipsData[]>([])
 
 const filteredData = computed(() => {
     return data.value.filter(item => {
         return (
-            Object.keys(typesFilter.value).some(type => {
+            Object.keys(typesFilter.value).some((type: ShipType) => {
                 return typesFilter.value[type] && item.type.name === type
             }) &&
-            Object.keys(nationsFilter.value).some(nation => {
+            Object.keys(nationsFilter.value).some((nation: Nations) => {
                 return nationsFilter.value[nation] && item.nation.name === nation
             }) &&
             item.level >= levelFilter.value.min &&
@@ -35,24 +36,24 @@ const fetchReq = (query: any) => {
         .then((res) => (data.value = res.data.vehicles));
 };
 
-const translateType = (type) => {
+const translateType = (type: ShipType) => {
     switch (type) {
-        case 'submarine':
+        case ShipTypes.SUBMARINE:
             return 'субмарина'
-        case 'destroyer':
+        case ShipTypes.DESTROYER:
             return 'разрушитель'
-        case 'cruiser':
+        case ShipTypes.CRUISER:
             return 'крейсер'
-        case 'battleship':
+        case ShipTypes.BATTLESHIP:
             return 'боевой корабль'
-        case 'aircarrier':
+        case ShipTypes.AIRCARRIER:
             return 'авианосец'
         default:
             return ''
     }
 }
 
-const typesFilter = ref({
+const typesFilter = ref<TypesFilter>({
     submarine: true,
     destroyer: true,
     cruiser: true,
@@ -60,7 +61,7 @@ const typesFilter = ref({
     aircarrier: true,
 });
 
-const nationsFilter = ref({
+const nationsFilter = ref<NationsFilter>({
     japan: true,
     usa: true,
     ussr: true,
